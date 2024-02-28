@@ -1,5 +1,6 @@
 from data_create import name_data, surname_data, phone_data, adress_data
 import pandas as pd
+import csv
 
 
 def input_data():            # Добавление данных в телефонные справочники
@@ -22,9 +23,9 @@ def input_data():            # Добавление данных в телефо
         with open('data_first_variant.csv', 'a', encoding='utf-8') as f:
             f.writelines(f"\n\n{name}\n{surname}\n{phone}\n{adress}")
     elif var == 2:
-        with open('data_second_variant.csv', 'a', encoding='utf-8') as f:
-            f.writelines(f"{name};{surname};{phone};{adress}\n")
-
+        with open('data_second_variant.csv', 'a', newline='\n', encoding='utf-8') as f:
+            csv_writer = csv.writer(f, delimiter=';')
+            csv_writer.writerow([name, surname, phone, adress])
 
 
 def print_data():          # Отображение всех справочников
@@ -37,7 +38,8 @@ def print_data():          # Отображение всех справочни�
             print('--------')
 
     print('Вывожу данные из 2 файла: \n')
-    data_second = pd.read_csv('data_second_variant.csv', encoding='utf-8')
+    data_second = pd.read_csv('data_second_variant.csv', encoding='utf-8', header=None)
+    data_second.columns = ['Имя    Фамилия    Телефон    Адрес']
     print(data_second)
 
 
