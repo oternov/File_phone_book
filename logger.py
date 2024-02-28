@@ -20,10 +20,10 @@ def input_data():            # Добавление данных в телефо
         var = int(input('Введите число '))
 
     if var == 1:
-        with open('data_first_variant.csv', 'a', encoding='utf-8') as f:
+        with open('data_first_variant.csv', 'a', encoding='utf-8') as f:       # Добавление новых данных в 1 файл
             f.writelines(f"\n\n{name}\n{surname}\n{phone}\n{adress}")
     elif var == 2:
-        with open('data_second_variant.csv', 'a', newline='\n', encoding='utf-8') as f:
+        with open('data_second_variant.csv', 'a', newline='\n', encoding='utf-8') as f:      # Добавление новых данных во 2 файл
             csv_writer = csv.writer(f, delimiter=';')
             csv_writer.writerow([name, surname, phone, adress])
 
@@ -35,11 +35,11 @@ def print_data():          # Отображение всех справочни�
         data_first_people = data_first.split('\n\n') # Разделяем строку на отдельные значения по двойному пробелу
         for i in data_first_people:
             print(i)
-            print('--------')
+            print('--------')            
 
     print('Вывожу данные из 2 файла: \n')
     data_second = pd.read_csv('data_second_variant.csv', delimiter=';', encoding='utf-8', header=None)
-    data_second.columns = ['Имя', 'Фамилия', 'Телефон', 'Адрес']  # Правильно задаем имена столбцов
+    data_second.columns = ['Имя', 'Фамилия', 'Телефон', 'Адрес']  # Задаем имена столбцов
 
     # Форматирование для выравнивания данных и заголовков по левому краю
     column_width = 20
@@ -69,18 +69,18 @@ def del_data():           # Удаление данных из телефонн�
     if var == 1:
         with open('data_first_variant.csv', 'r', encoding='utf-8') as f:
             data_first = f.readlines()
-            data_del = data_first[:num-1] + data_first[num+4:]   # Удаляем от начала записи по человеку до конца, включая последний пробел
+            data_del = data_first[:num-1] + data_first[num+4:]   # Удаляем от начала записи по человеку до конца, включая последний пробел (удаляем запись между пробелами начиная от указанной строки)
             with open('data_first_variant.csv', 'w', encoding='utf-8') as f:
-                f.writelines(data_del)
+                f.writelines(data_del)                      # Перезаписываем файл без удаленной записи
             print('Запись удалена')
            
     elif var == 2:
         with open('data_second_variant.csv', 'r', encoding='utf-8') as f:
             data_second = f.readlines()
-            num -= 1
-            data_del = data_second[:num] + data_second[num+1:]
+            num -= 1                                
+            data_del = data_second[:num] + data_second[num+1:]    # Удаляем указанную строку
             with open('data_second_variant.csv', 'w', encoding='utf-8') as f:
-                f.writelines(data_del)
+                f.writelines(data_del)                           # Перезаписываем файл без удаленной записи
             print('Запись удалена')
 
 
@@ -103,9 +103,9 @@ def chenge_data():       # Изменение данных в телефонны
         with open('data_first_variant.csv', 'r', encoding='utf-8') as f:
             data_first = f.readlines()
             if 1 <= num <= len(data_first):
-                data_first[num-1:num+3] = f"{name}\n{surname}\n{phone}\n{adress}\n"
+                data_first[num-1:num+3] = f"{name}\n{surname}\n{phone}\n{adress}\n"     # Меняем определенные строки, пользуясь срезами
                 with open('data_first_variant.csv', 'w', encoding='utf-8') as f:
-                    f.writelines(data_first)
+                    f.writelines(data_first)                                       # Перезаписываем файл с учетом изменений
                 print('Запись изменена')
             else:
                 print('Некорректный номер записи')
@@ -114,9 +114,9 @@ def chenge_data():       # Изменение данных в телефонны
         with open('data_second_variant.csv', 'r', encoding='utf-8') as f:
             data_second = f.readlines()
             if 1 <= num <= len(data_second):
-               data_second[num-1] = f"{name};{surname};{phone};{adress}\n"
+               data_second[num-1] = f"{name};{surname};{phone};{adress}\n"            # Меняем определенные строки, пользуясь срезами
                with open('data_second_variant.csv', 'w', encoding='utf-8') as f:
-                    f.writelines(data_second)
+                    f.writelines(data_second)                                          # Перезаписываем файл с учетом изменений
             print('Запись изменена')
 
 
@@ -127,9 +127,9 @@ def search_data():    # Поиск в стправочнике
         # Ищем все слова с заданным параметром в строке
         data_first = f.read()  # Читаем весь файл в одну строку
         data_first_people = data_first.split('\n\n') # Разделяем строку на отдельные значения по двойному пробелу
-        Flag1 = False
+        Flag1 = False               # Флаг, чтобы один раз выводить запись о найденных значениях
         for i in data_first_people:
-            if temp in i:
+            if temp in i:              # Если искомые параметры есть в данных по абоненту
                 if Flag1 == False:
                     print('В первом справочнике найдены следующие записи: \n', end='-------- \n')
                 print(i)
@@ -137,9 +137,9 @@ def search_data():    # Поиск в стправочнике
                 Flag1 = True
 
     with open('data_second_variant.csv', 'r', encoding='utf-8') as f:
-            Flag2 = False
+            Flag2 = False              # Флаг, чтобы один раз выводить запись о найденных значениях
             for i in f:
-                if temp in i:
+                if temp in i:          # Если искомые параметры есть в данных по абоненту
                     if Flag2 == False:
                         print('Во втором справочнике найдены следующие записи:')
                     print(i, end='') 
@@ -149,7 +149,7 @@ def search_data():    # Поиск в стправочнике
         print('По данному параметру значения не найдены') 
 
 
-def txt_data():
+def txt_data():       # Сохранение файлов в txt формате
     with open('data_first_variant.csv', 'r', encoding='utf-8') as f_csv:
         data_first = f_csv.readlines()
         with open('data_first_variant.txt', 'w', encoding='utf-8') as f_txt:
@@ -165,7 +165,7 @@ def txt_data():
     print('Данные сохранены')
 
 
-def copy_data():
+def copy_data():     # Копирование из одного файла в другой
     var = int(input('Введите номер файла, из которого нужно скопировать данные: \n'))
     
     while var != 1 and var != 2:
