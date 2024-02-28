@@ -1,4 +1,4 @@
-from logger import input_data, print_data, del_data, chenge_data, search_data, txt_data
+from logger import input_data, print_data, del_data, chenge_data, search_data, txt_data, copy_data
 
 
 def interface():
@@ -9,10 +9,11 @@ def interface():
           " 4 - изменить данные по абоненту \n"
           " 5 - найти абонента по любому параметру \n"
           " 6 - сохранить файл в текстовом фомате \n"
-          " 7 - закончить работу")
+          " 7 - копирование данных из одного справочника в другой \n"
+          " 8 - закончить работу")
     command = int(input('Введите число '))
 
-    while command not in range(1,8):
+    while command not in range(1,9):
         print('Неправильный ввод')
         command = int(input('Введите число '))
 
@@ -29,4 +30,6 @@ def interface():
     elif command == 6:
         txt_data()
     elif command == 7:
+        copy_data()
+    elif command == 8:
         exit()
