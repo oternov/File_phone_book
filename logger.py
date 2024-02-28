@@ -77,6 +77,7 @@ def del_data():           # Удаление данных из телефонн�
     elif var == 2:
         with open('data_second_variant.csv', 'r', encoding='utf-8') as f:
             data_second = f.readlines()
+            num -= 1
             data_del = data_second[:num] + data_second[num+1:]
             with open('data_second_variant.csv', 'w', encoding='utf-8') as f:
                 f.writelines(data_del)
