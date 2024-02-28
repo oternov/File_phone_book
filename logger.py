@@ -133,4 +133,16 @@ def search_data():    # Поиск в стправочнике
 
 
 def txt_data():
-    pass
+    with open('data_first_variant.csv', 'r', encoding='utf-8') as f_csv:
+        data_first = f_csv.readlines()
+        with open('data_first_variant.txt', 'w', encoding='utf-8') as f_txt:
+            for i in data_first:
+                f_txt.write(i)
+
+    with open('data_second_variant.csv', 'r', encoding='utf-8') as f_csv:
+        data_second = f_csv.readlines()
+        with open('data_second_variant.txt', 'w', encoding='utf-8') as f_txt:
+            for i in data_second:
+                f_txt.write(i)
+    
+    print('Данные сохранены')

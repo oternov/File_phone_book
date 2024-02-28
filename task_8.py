@@ -8,10 +8,11 @@ def interface():
           " 3 - удалить абонента из справочника \n"
           " 4 - изменить данные по абоненту \n"
           " 5 - найти абонента по любому параметру \n"
-          " 6 - сохранить файл в текстовом фомате")
+          " 6 - сохранить файл в текстовом фомате \n"
+          " 7 - закончить работу")
     command = int(input('Введите число '))
 
-    while command not in range(1,7):
+    while command not in range(1,8):
         print('Неправильный ввод')
         command = int(input('Введите число '))
 
@@ -27,3 +28,5 @@ def interface():
         search_data()
     elif command == 6:
         txt_data()
+    elif command == 7:
+        exit()
