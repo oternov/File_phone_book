@@ -38,9 +38,23 @@ def print_data():          # Отображение всех справочни�
             print('--------')
 
     print('Вывожу данные из 2 файла: \n')
-    data_second = pd.read_csv('data_second_variant.csv', encoding='utf-8', header=None)
-    data_second.columns = ['Имя    Фамилия    Телефон    Адрес']
-    print(data_second)
+    data_second = pd.read_csv('data_second_variant.csv', delimiter=';', encoding='utf-8', header=None)
+    data_second.columns = ['Имя', 'Фамилия', 'Телефон', 'Адрес']  # Правильно задаем имена столбцов
+
+    # Форматирование для выравнивания данных и заголовков по левому краю
+    column_width = 20
+    formatters = {column: lambda x: str(x).ljust(column_width) for column in data_second.columns}
+    headers = {column: column.ljust(column_width) for column in data_second.columns}
+
+    # Выводим заголовки таблицы с пунктирной линией между столбцами
+    header_row = '|'.join(headers.values())
+    print(header_row)
+    print('-' * len(header_row))  # Печатаем границу под заголовками
+
+    # Выводим данные в виде таблицы с выравниванием по левому краю и пунктирной линией между столбцами
+    for index, row in data_second.iterrows():
+        print('|'.join([str(x).ljust(column_width) for x in row.values]))
+        print('-' * len(header_row))  # Печатаем пунктирную границу между строками
 
 
 def del_data():           # Удаление данных из телефонных справочников
